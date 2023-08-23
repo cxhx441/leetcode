@@ -1,0 +1,5 @@
+disable=missing-class-docstring,
+missing-module-docstring,
+missing-function-docstring,
+
+good-names=i,j,k,el,e,x,y,_,z,l,r
