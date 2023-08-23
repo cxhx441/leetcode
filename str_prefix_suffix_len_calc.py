@@ -1,12 +1,12 @@
 """
-This is the pattern length calculation algorithm. It is used in Knuth Morris Pratt (KMP) for pattern matching. 
+This is the pattern length calculation algorithm. It is used in Knuth Morris Pratt (KMP) for pattern matching.
 https://www.youtube.com/watch?v=V5-7GzOfADQ&t=4s
 https://www.youtube.com/watch?v=EL4ZbRF587g
 https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
 """
 import unittest
 
-def pattern_len(pattern: str) -> list:
+def pattern_len(pattern: str) -> str:
     left = 0
     right = 1
     lengths = [0]*len(pattern)
@@ -20,39 +20,24 @@ def pattern_len(pattern: str) -> list:
             left = 0
         right += 1
 
-    return lengths
+    return ''.join([str(x) for x in lengths])
 
 
 class testPatternLen(unittest.TestCase):
     def test1(self):
-        pattern = "abcdabeabf"
-        expected = [int(x) for x in "0000120120"]
-        print(pattern_len(pattern))
-        self.assertEqual(pattern_len(pattern), expected)
+        self.assertEqual(pattern_len("abcdabeabf"),"0000120120")
 
     def test2(self):
-        pattern = "abcdeabfabc"
-        expected = [int(x) for x in "00000120123"]
-        print(pattern_len(pattern))
-        self.assertEqual(pattern_len(pattern), expected)
+        self.assertEqual(pattern_len( "abcdeabfabc"), "00000120123")
 
     def test3(self):
-        pattern = "aabcadaabe"
-        expected = [int(x) for x in "0100101230"]
-        print(pattern_len(pattern))
-        self.assertEqual(pattern_len(pattern), expected)
+        self.assertEqual(pattern_len( "aabcadaabe"), "0100101230")
 
     def test4(self):
-        pattern = "aaaabaacd"
-        expected = [int(x) for x in "012301200"]
-        print(pattern_len(pattern))
-        self.assertEqual(pattern_len(pattern), expected)
+        self.assertEqual(pattern_len( "aaaabaacd"), "012301200")
 
     def test5(self):
-        pattern = "abcxxxabcy"
-        expected = [int(x) for x in "0000001230"]
-        print(pattern_len(pattern))
-        self.assertEqual(pattern_len(pattern), expected)
+        self.assertEqual(pattern_len( "abcxxxabcy"), "0000001230")
 
 if __name__ == "__main__":
     unittest.main()
