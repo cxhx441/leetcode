@@ -5,6 +5,7 @@ https://www.youtube.com/watch?v=EL4ZbRF587g
 https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
 """
 import unittest
+from pointer_debug import pointer_debug
 
 
 def get_border_width(pattern: str) -> str:
@@ -13,6 +14,7 @@ def get_border_width(pattern: str) -> str:
     widths = [0] * len(pattern)
 
     while right < len(pattern):
+        pointer_debug(pattern, {left: ["l"], right: ["r"]})
         if pattern[left] == pattern[right]:
             left += 1
             widths[right] = left
@@ -48,6 +50,10 @@ class testPatternLen(unittest.TestCase):
 
     def test7(self):
         self.assertEqual(get_border_width("abcab__abcac"), "000120012340")
+
+    def test8(self):
+        self.assertEqual(get_border_width("abcaaabdac"), "0001112010")
+
 
 
 if __name__ == "__main__":
