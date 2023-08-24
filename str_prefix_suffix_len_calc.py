@@ -9,24 +9,23 @@ from pointer_debug import pointer_debug
 
 
 def get_border_width(pattern: str) -> str:
-    left = 0
-    right = 1
-    widths = [0] * len(pattern)
+    border_widths = [0] * len(pattern)
 
+    left, right = 0, 1
     while right < len(pattern):
-        pointer_debug(pattern, {left: ["l"], right: ["r"]})
+        # pointer_debug(pattern, {left: ["l"], right: ["r"]})
         if pattern[left] == pattern[right]:
             left += 1
-            widths[right] = left
+            border_widths[right] = left
             right += 1
         else:
             if left == 0:
-                widths[right] = 0
+                border_widths[right] = 0
                 right += 1
             else:
-                left = widths[left - 1]
+                left = border_widths[left - 1]
 
-    return "".join([str(x) for x in widths])
+    return "".join([str(x) for x in border_widths])
 
 
 class testPatternLen(unittest.TestCase):
@@ -53,7 +52,6 @@ class testPatternLen(unittest.TestCase):
 
     def test8(self):
         self.assertEqual(get_border_width("abcaaabdac"), "0001112010")
-
 
 
 if __name__ == "__main__":
