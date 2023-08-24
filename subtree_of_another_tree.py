@@ -12,6 +12,11 @@ class TreeNode:
 def is_subtree(root: Optional[TreeNode], subroot: Optional[TreeNode]) -> bool:
     # serialization method
     def serialize_tree(serial_root) -> str:
+        """
+        Serialize the tree using pre-order traversal.
+        Can be done using post-order traversal.
+        Not using in-order traversal because it is not unique.
+        """
         serialized_list = []
         stack = [serial_root]
         while stack:
@@ -28,7 +33,7 @@ def is_subtree(root: Optional[TreeNode], subroot: Optional[TreeNode]) -> bool:
     root_serial = serialize_tree(root)
     subroot_serial = serialize_tree(subroot)
 
-    # brute-force string matching
+    # now it is just string matching
     if len(subroot_serial) > len(root_serial):
         return False
 
