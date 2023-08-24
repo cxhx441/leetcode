@@ -7,38 +7,47 @@ https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string
 import unittest
 
 
-def pattern_len(pattern: str) -> str:
+def get_border_width(pattern: str) -> str:
     left = 0
     right = 1
-    lengths = [0] * len(pattern)
+    widths = [0] * len(pattern)
 
     while right < len(pattern):
         if pattern[left] == pattern[right]:
-            lengths[right] = lengths[right - 1] + 1
             left += 1
+            widths[right] = left
+            right += 1
         else:
-            lengths[right] = 0
-            left = 0
-        right += 1
+            if left == 0:
+                widths[right] = 0
+                right += 1
+            else:
+                left = widths[left - 1]
 
-    return "".join([str(x) for x in lengths])
+    return "".join([str(x) for x in widths])
 
 
 class testPatternLen(unittest.TestCase):
     def test1(self):
-        self.assertEqual(pattern_len("abcdabeabf"), "0000120120")
+        self.assertEqual(get_border_width("abcdabeabf"), "0000120120")
 
     def test2(self):
-        self.assertEqual(pattern_len("abcdeabfabc"), "00000120123")
+        self.assertEqual(get_border_width("abcdeabfabc"), "00000120123")
 
     def test3(self):
-        self.assertEqual(pattern_len("aabcadaabe"), "0100101230")
+        self.assertEqual(get_border_width("aabcadaabe"), "0100101230")
 
     def test4(self):
-        self.assertEqual(pattern_len("aaaabaacd"), "012301200")
+        self.assertEqual(get_border_width("aaaabaacd"), "012301200")
 
     def test5(self):
-        self.assertEqual(pattern_len("abcxxxabcy"), "0000001230")
+        self.assertEqual(get_border_width("abcxxxabcy"), "0000001230")
+
+    def test6(self):
+        self.assertEqual(get_border_width("abcaaabcac"), "0001112340")
+
+    def test7(self):
+        self.assertEqual(get_border_width("abcab__abcac"), "000120012340")
 
 
 if __name__ == "__main__":
