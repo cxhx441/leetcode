@@ -1,4 +1,6 @@
 import unittest
+from pointer_debug import pointer_debug
+
 
 
 def str_matching(needle: str, haystack: str) -> int:
@@ -38,7 +40,7 @@ def str_matching(needle: str, haystack: str) -> int:
 
         return ''.join([str(x) for x in border_widths])
 
-    # now use the second half of kmp to jump around. 
+    # now use the second half of kmp to jump around.
 
 
 
