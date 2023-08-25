@@ -1,7 +1,7 @@
 from pointer_debug import pointer_debug
 
 
-def str_matching(needle: str, haystack: str) -> int:
+def str_matching_kmp(needle: str, haystack: str) -> int:
     """
     Return the starting index of the str to be found (needle) within the (haystack)
     Else return -1
@@ -65,3 +65,34 @@ def str_matching(needle: str, haystack: str) -> int:
         return i - j - 1
 
     return -1  # O(m + n)
+
+
+def str_matching_rabin_karp(needle: str, haystack: str) -> int:
+    BASE = 26  # number of possible unique chars in haystack U needle
+
+    def get_pattern_hash(pattern: str) -> int:
+        pattern_hash = 0
+        for i, ch in enumerate(pattern):
+            power = len(pattern) - i - 1
+            pattern_hash += ord(ch) * BASE**power
+        return pattern_hash
+
+    needle_hash = get_pattern_hash(needle)
+    l, r = 0, len(needle)
+    haystack_window_hash = get_pattern_hash(haystack[:r])
+    while r < len(haystack):
+        if needle_hash == haystack_window_hash and needle == haystack[l:r]:
+            return l
+
+        # update haystack hash
+        haystack_window_hash -= ord(haystack[l]) * BASE ** (len(needle) - 1)
+        haystack_window_hash *= 26
+        haystack_window_hash += ord(haystack[r])
+
+        l += 1
+        r += 1
+
+    if needle_hash == haystack_window_hash and needle == haystack[l:r]:
+        return l
+
+    return -1
