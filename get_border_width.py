@@ -17,12 +17,11 @@ def get_border_width(pattern: str) -> str:
             left += 1
             border_widths[right] = left
             right += 1
+        elif left == 0:
+            border_widths[right] = 0
+            right += 1
         else:
-            if left == 0:
-                border_widths[right] = 0
-                right += 1
-            else:
-                left = border_widths[left - 1]
+            left = border_widths[left - 1]
 
     return "".join([str(x) for x in border_widths])
 

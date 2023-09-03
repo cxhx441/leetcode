@@ -34,12 +34,11 @@ def str_matching_kmp(needle: str, haystack: str) -> int:
                 l += 1
                 border_widths[r] = l
                 r += 1
+            elif l == 0:
+                border_widths[r] = 0
+                r += 1
             else:
-                if l == 0:
-                    border_widths[r] = 0
-                    r += 1
-                else:
-                    l = border_widths[l - 1]
+                l = border_widths[l - 1]
 
         return border_widths
 
@@ -55,11 +54,10 @@ def str_matching_kmp(needle: str, haystack: str) -> int:
         if haystack[i] == needle[j + 1]:
             j += 1
             i += 1
+        elif j != -1:
+            j = border_widths[j] - 1
         else:
-            if j != -1:
-                j = border_widths[j] - 1
-            else:
-                i += 1
+            i += 1
 
     if j == len(needle) - 1:
         return i - j - 1
